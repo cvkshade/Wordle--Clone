@@ -1,0 +1,211 @@
+:root {
+    --right: #6ca965;
+    --wrong: #c8b653;
+    --empty: #787c7f;
+    --background: #000000;
+}
+*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body {
+    min-height: 100vh;
+    height: 100vh;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url(./asset/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+    position: relative;
+
+}
+
+.main {
+    
+    min-width:  100%;
+    display: grid;
+    grid-template-rows: 1fr 4fr auto;
+   height: 100%;
+   gap: 0.5rem;
+    /* height: 90rem; */
+    /* height: 100%; */
+    align-items: space-between;
+}
+.hud {
+    background-color: var(--background);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    color: #fff;
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3rem;
+    border-bottom: 2px solid black;
+}
+.hud button {
+    background-color: chocolate;
+    height: 90%;
+    padding: 0 1rem;
+    border-radius: 50px;
+    border: none;
+    color: #fff;
+    font-weight: 800;
+}
+.lives {
+    color: chocolate;
+    font-size: 1.4rem;
+}
+.score {
+    color: chocolate;
+    padding-left: 0.5rem;
+    font-size: 1.4rem;
+}
+.game {
+    display: flex;
+    justify-content: center;
+}
+.display {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background-color: #000;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    height: fit-content;
+}
+.display div  {
+    height: 56px;
+    width: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 3rem;
+    background: rgba(143, 140, 140, 0.349);
+    text-transform: uppercase;
+
+}
+.display div.correct, span.correct {
+    background-color: var(--right);
+}
+.display div.wrong, span.wrong {
+    background-color: var(--wrong);
+}
+
+.display div.empty, span.empty {
+    background-color: var(--empty);
+}
+.btns {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: .5rem;
+    padding: .5rem;
+    /* position: absolute; */
+    bottom: 0;
+    right: 10%;
+    left: 10%;
+    height: 10rem;
+    background-color: var(--background);
+}
+.aphabet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(143, 140, 140, 0.349);
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    font-size: 1.2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+.enter {
+    background-color: green;
+    grid-column: span 2;
+}
+.delete {
+    background-color: red;
+    grid-column: span 2;
+}
+.aphabet:hover {
+    background-color: #fff;
+    color: #000;
+    transition: height 4000ms linear;
+}
+.animation {
+    animation: flip 2s ease-in-out;
+}
+
+.overlay {
+    background-color: #000000cb;
+    z-index: 100;    
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    place-items: center;
+    place-content: center;
+}
+.overlay .loader {
+    background-color: #fff;
+    width: fit-content;
+    font-size: 3rem;
+    display: flex;
+    place-items: center;
+    position: relative;
+    /* height: 4rem; */
+    padding: 0.5rem;
+}
+.loader::before {
+    content: 'by World Free Spirit';
+    height: fit-content;
+    font-size: small;
+    width: fit-content;
+    background-color: gold;
+    font-weight: bolder;
+    position: absolute;
+    bottom: -35px;
+    right: 0;
+    padding: 0.3rem 0.5rem;
+    text-shadow: 0 0 8px #fff;
+    text-transform: uppercase;
+    /* bottom: 0; */
+}
+.overlay .loader span {
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    margin: 0.5rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5 );
+}
+@keyframes flip {
+    0% { transform: scaleY(1);}
+    50% { transform: scaleY(0);}
+    100% { transform: scaleY(1);}
+}
+
+.loadAnimation {
+    animation: flip 2000ms ease-in-out;
+}
+loadAnimation:nth-child(1) {
+    animation-delay: 0ms;
+}
+.loadAnimation:nth-child(2) {
+    animation-delay: 1000ms;
+}.loadAnimation:nth-child(3) {
+    animation-delay: 3000ms;
+}.loadAnimation:nth-child(4) {
+    animation-delay: 2500ms;
+}.loadAnimation:nth-child(5) {
+    animation-delay: 2000ms;
+}
