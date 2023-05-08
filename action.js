@@ -3,36 +3,37 @@ const loader = document.querySelector('.overlay');
 let dictionary = [];
 let wordToGuess;
 async function secretWord (){
-	const url = 'https://random-words5.p.rapidapi.com/getMultipleRandom?count=15&wordLength=5';
+	const url = 'https://random-word-api.p.rapidapi.com/L/5';
 const options = {
 	method: 'GET',
 	headers: {
 		'X-RapidAPI-Key': '038067ceaamshd28482b59046714p19a668jsn3602b0ecd893',
-		'X-RapidAPI-Host': 'random-words5.p.rapidapi.com'
+		'X-RapidAPI-Host': 'random-word-api.p.rapidapi.com'
 	}
 };
 
 try {
 	const response = await fetch(url, options);
 	const result = await response.json();
-	dictionary = [...result];
+	// dictionary = [...result];
+	wordToGuess = result;
 	getWord();
 } catch (error) {
 	console.error(error);
 }
 }
 
-let getWord = () => {
-	if(dictionary.length === 0) return;
-	if (dictionary.length > 0) {
-		wordToGuess = dictionary[Math.floor(Math.random() * dictionary.length - 1)];
-		loader.style.display = 'none';
-		return wordToGuess;
-	}
+// let getWord = () => {
+// 	if(dictionary.length === 0) return;
+// 	if (dictionary.length > 0) {
+// 		wordToGuess = dictionary[Math.floor(Math.random() * dictionary.length - 1)];
+// 		loader.style.display = 'none';
+// 		return wordToGuess;
+// 	}
 
 
 	
-}
+// }
 
 let gameState = {
 	grid: Array(6).fill().map(() => Array(5).fill('')),
