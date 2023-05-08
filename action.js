@@ -1,7 +1,5 @@
 const loader = document.querySelector('.overlay');
 
-
-
 let dictionary = [];
 let wordToGuess;
 async function secretWord (){
@@ -117,6 +115,7 @@ let newLetter = (letter) => {
 };
 let purgeLetter = () => {
 	if (gameState.column === 0) return;
+	gameState.column = '';
 	gameState.column--;
 
 };
@@ -166,14 +165,8 @@ const gamestart = () => {
 };
 gamestart();
 
-
 const inputKeys = document.querySelector('.btns');
 
-
-
-// let guess = "";
-
-// Event Listener
 inputKeys.addEventListener('click', (e) => {
 	let key = e.target.textContent;
 	if (!e.target.classList.contains('aphabet')) return;
@@ -186,7 +179,4 @@ inputKeys.addEventListener('click', (e) => {
 	} else {
 		newLetter(key)
 	}
-
-
-
 });

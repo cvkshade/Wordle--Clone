@@ -27,7 +27,7 @@ body {
     
     min-width:  100%;
     display: grid;
-    grid-template-rows: 1fr 4fr auto;
+    grid-template-rows:  4fr auto;
    height: 100%;
    gap: 0.5rem;
     /* height: 90rem; */
@@ -68,6 +68,7 @@ body {
 .game {
     display: flex;
     justify-content: center;
+    place-items: center;
 }
 .display {
     display: grid;
@@ -149,10 +150,9 @@ body {
     left: 0;
     bottom: 0;
     right: 0;
-    display: grid;
+    display: none;
     place-items: center;
     place-content: center;
-    animation: disappear 300ms forwards;
 }
 
 @keyframes disappear {
@@ -226,5 +226,14 @@ loadAnimation:nth-child(1) {
     animation-delay: 5000ms;
 }.loadAnimation:nth-child(6) {
     animation-delay: 6000ms;
+}
+
+@media (width < 768px) {
+    .main {
+        grid-template-rows: 1fr auto auto;
+    }
+    .btns {
+        width: 100%;
+    }
 }
 
