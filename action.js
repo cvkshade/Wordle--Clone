@@ -7,7 +7,7 @@ async function secretWord (){
 const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': '038067ceaamshd28482b59046714p19a668jsn3602b0ecd893',
+		'X-RapidAPI-Key': '04bc19bd87mshd399b62baa34ec3p180442jsn9245eaaae5da',
 		'X-RapidAPI-Host': 'random-word-api.p.rapidapi.com'
 	}
 };
