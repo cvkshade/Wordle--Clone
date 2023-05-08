@@ -18,7 +18,6 @@ try {
 	const response = await fetch(url, options);
 	const result = await response.json();
 	dictionary = [...result];
-	console.log(dictionary);
 	getWord();
 } catch (error) {
 	console.error(error);
