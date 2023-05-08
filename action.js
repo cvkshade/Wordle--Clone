@@ -114,7 +114,6 @@ let newLetter = (letter) => {
 	gridBox.innerHTML = letter;
 	gameState.grid[gameState.row][gameState.column] =`${letter}`;
 	gameState.column++;
-	console.log(letter)
 };
 let purgeLetter = () => {
 	if (gameState.column === 0) return;
@@ -136,7 +135,6 @@ let evaluate = () => {
 			alert('You can doit');
 
 		}
-		// console.log(activeWord)
 	}
 };
 let getInput = () => {
@@ -144,7 +142,6 @@ let getInput = () => {
 		let input = e.key;
 		switch (input) {
 			case 'Enter':
-				console.log(gameState.grid.textContent);
 
 				evaluate();
 
