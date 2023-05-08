@@ -1,10 +1,46 @@
-let dictionary = ['crane', 'spoon', 'house', 'lover'];
+const loader = document.querySelector('.overlay');
+
+
+
+let dictionary = [];
+let wordToGuess;
+async function secretWord (){
+	const url = 'https://random-words5.p.rapidapi.com/getMultipleRandom?count=15&wordLength=5';
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '038067ceaamshd28482b59046714p19a668jsn3602b0ecd893',
+		'X-RapidAPI-Host': 'random-words5.p.rapidapi.com'
+	}
+};
+
+try {
+	const response = await fetch(url, options);
+	const result = await response.json();
+	dictionary = [...result];
+	console.log(dictionary);
+	getWord();
+} catch (error) {
+	console.error(error);
+}
+}
+
+let getWord = () => {
+	if(dictionary.length === 0) return;
+	if (dictionary.length > 0) {
+		wordToGuess = dictionary[Math.floor(Math.random() * dictionary.length - 1)];
+		loader.style.display = 'none';
+		return wordToGuess;
+	}
+
+
+	
+}
 
 let gameState = {
 	grid: Array(6).fill().map(() => Array(5).fill('')),
 	row: 0,
 	column: 0,
-	secretWord: dictionary[Math.floor(Math.random() * (dictionary.length - 1))],
 };
 let renderGrid = () => {
 	for (let i = 0; i < gameState.grid.length; i++) {
@@ -48,18 +84,19 @@ let showWord = (guess) => {
 	for (let i = 0; i < 5; i++) {
 		let gridBox = document.getElementById(`gridbox-${row}-${i}`);
 		let letter = gridBox.textContent;
-		console.log(gridBox);
-		if (letter === gameState.secretWord[i]) {
+		if (letter === wordToGuess[i]) {
 			gridBox.classList.add("correct");
-		} else if (gameState.secretWord.includes(letter)) {
+			gridBox.classList.add("tileAnimation");
+		} else if (wordToGuess.includes(letter)) {
+			gridBox.classList.add("tileAnimation");
 			gridBox.classList.add("wrong");
 		} else {
 			gridBox.classList.add("empty");
 
 		}
 	}
-	const winner = gameState.secretWord === guess;
-	const gameEnd = gameState.row === 5;
+	const winner = wordToGuess === guess;
+	const gameEnd = gameState.row === 6;
 	if (winner) {
 		alert("winner");
 	} else if (gameEnd) {
@@ -92,8 +129,13 @@ let evaluate = () => {
 			showWord(activeWord);
 			gameState.row++;
 			gameState.column = 0;
-		} else {
+		} else if (!correctWord(activeWord)) {
+			showWord(activeWord);
+			gameState.row++;
+			gameState.column = 0;
+		}else {
 			alert('You can doit');
+
 		}
 		// console.log(activeWord)
 	}
@@ -123,8 +165,8 @@ let getInput = () => {
 const gamestart = () => {
 	let game = document.querySelector('.game');
 	createGrid(game);
+	secretWord();
 	getInput();
-	console.log(gameState.secretWord);
 };
 gamestart();
 

@@ -2,7 +2,7 @@
     --right: #6ca965;
     --wrong: #c8b653;
     --empty: #787c7f;
-    --background: #000000;
+    --background: #00000098;
 }
 *, *::after, *::before {
     box-sizing: border-box;
@@ -48,23 +48,22 @@ body {
     height: 3rem;
     border-bottom: 2px solid black;
 }
-.hud button {
-    background-color: chocolate;
-    height: 90%;
-    padding: 0 1rem;
-    border-radius: 50px;
-    border: none;
-    color: #fff;
-    font-weight: 800;
+.hud span {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
 }
 .lives {
     color: chocolate;
-    font-size: 1.4rem;
+    padding-left: 0.5rem;
+    font-size: 2rem;
+    font-weight: 900;
+    text-shadow: 0 0 2px gold;
 }
-.score {
+.alertBox {
     color: chocolate;
     padding-left: 0.5rem;
-    font-size: 1.4rem;
+    font-size: 2rem;
 }
 .game {
     display: flex;
@@ -73,7 +72,7 @@ body {
 .display {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    background-color: #000;
+    background-color: var(--background);
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem;
@@ -103,7 +102,7 @@ body {
 }
 .btns {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     gap: .5rem;
     padding: .5rem;
     /* position: absolute; */
@@ -150,11 +149,17 @@ body {
     left: 0;
     bottom: 0;
     right: 0;
-    display: flex;
+    display: grid;
     place-items: center;
     place-content: center;
+    animation: disappear 300ms forwards;
 }
-.overlay .loader {
+
+@keyframes disappear {
+    0% { display: grid; }
+    100% { display: none; transform: translateY(40px); }
+  }
+.loader {
     background-color: #fff;
     width: fit-content;
     font-size: 3rem;
@@ -163,6 +168,14 @@ body {
     position: relative;
     /* height: 4rem; */
     padding: 0.5rem;
+}
+.play {
+    background-color: #fff;
+    display: none;
+    font-size: 3rem;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    cursor: pointer;
 }
 .loader::before {
     content: 'by World Free Spirit';
@@ -194,18 +207,24 @@ body {
     100% { transform: scaleY(1);}
 }
 
+.tileAnimation {
+    animation: flip 1000ms ease-in;
+}
+
 .loadAnimation {
-    animation: flip 2000ms ease-in-out;
+    animation: flip 2000ms ease-in;
 }
 loadAnimation:nth-child(1) {
     animation-delay: 0ms;
-}
-.loadAnimation:nth-child(2) {
+}.loadAnimation:nth-child(2) {
     animation-delay: 1000ms;
 }.loadAnimation:nth-child(3) {
     animation-delay: 3000ms;
 }.loadAnimation:nth-child(4) {
-    animation-delay: 2500ms;
+    animation-delay: 4000ms;
 }.loadAnimation:nth-child(5) {
-    animation-delay: 2000ms;
+    animation-delay: 5000ms;
+}.loadAnimation:nth-child(6) {
+    animation-delay: 6000ms;
 }
+
