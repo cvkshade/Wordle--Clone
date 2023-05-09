@@ -55,15 +55,15 @@ let wordToGuess = dictionary[Math.floor(Math.random() * dictionary.length - 1)];
 // }
 
 let gameState = {
-	grid: Array(6).fill().map(() => Array(5).fill('')),
+	data: Array(6).fill().map(() => Array(5).fill('')),
 	row: 0,
 	column: 0,
 };
 let renderGrid = () => {
-	for (let i = 0; i < gameState.grid.length; i++) {
-		for (let j = 0; j < gameState.grid[i].length; j++) {
+	for (let i = 0; i < gameState.data.length; i++) {
+		for (let j = 0; j < gameState.data[i].length; j++) {
 			let gridBox = document.getElementById(`gridbox-${i}-${j}`);
-			gridBox.textContent = gameState.grid[i][j];
+			gridBox.textContent = gameState.data[i][j];
 		}
 	}
 };
@@ -90,7 +90,7 @@ let createGrid = (parent) => {
 };
 
 let retrieveWord = () => {
-	return gameState.grid[gameState.row].reduce((than, now) => than + now).toLowerCase();
+	return gameState.data[gameState.row].reduce((than, now) => than + now).toLowerCase();
 };
 let correctWord = (word) => {
 	return dictionary.includes(word);
@@ -99,6 +99,7 @@ let showWord = (guess) => {
 	
 	let row = gameState.row;
 	for (let i = 0; i < 5; i++) {
+		let key = document.querySelector('aphabet')
 		let gridBox = document.getElementById(`gridbox-${row}-${i}`);
 		let letter = gridBox.textContent;
 		if (letter === wordToGuess[i]) {
@@ -129,16 +130,16 @@ let newLetter = (letter) => {
 		gameState.row++;
 		return;}
 	let gridBox = document.getElementById(`gridbox-${gameState.row}-${gameState.column}`);
-	gridBox.innerHTML = letter;
-	gameState.grid[gameState.row][gameState.column] =`${letter}`;
+	gameState.data[gameState.row][gameState.column] =`${letter}`;
+	gridBox.innerHTML = gameState.data[gameState.row][gameState.column];
+
 	gameState.column++;
 };
 let purgeLetter = () => {
-	console.log('Purging')
 	if (gameState.column === 0) return;
-gridBox[gameState.column].textContent = '';
+	gameState.data[gameState.row][gameState.column - 1] = '';
 	gameState.column--;
-
+	renderGrid();
 };
 let evaluate = () => {
 	if (gameState.column === 5) {
@@ -158,7 +159,7 @@ let evaluate = () => {
 	}
 };
 let getInput = () => {
-	document.addEventListener('keypress', (e) => {
+	document.addEventListener('keydown', (e) => {
 		let input = e.key;
 		switch (input) {
 			case 'Enter':
@@ -181,7 +182,6 @@ let getInput = () => {
 const gamestart = () => {
 	let game = document.querySelector('.game');
 	createGrid(game);
-	// secretWord();
 	getInput();
 };
 gamestart();
