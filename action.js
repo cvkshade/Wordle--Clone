@@ -1,56 +1,58 @@
 const loader = document.querySelector('.overlay');
+const WORDLENGTH = 5;
+// document.addEventListener('DOMContentLoaded', () => loader.style.display = 'none');
+// let dictionary = ["apple", "beach", "chair", "dance", "earth", "fruit", "grape", "house", "igloo", "jolly",
+// 		"knife", "lemon", "mango", "navy", "ocean", "pearl", "queen", "radio", "sunny", "table",
+// 		"umbra", "vodka", "water", "xerox", "yacht", "zebra", "abuse", "badge", "chair", "dance",
+// 		"early", "flute", "grain", "horse", "igloo", "joker", "knock", "lemon", "mango", "night",
+// 		"oasis", "peace", "quilt", "radio", "sugar", "table", "uncle", "virus", "wreck", "xenon",
+// 		"yield", "zebra", "abide", "baker", "cable", "daisy", "elite", "frank", "glide", "hazel",
+// 		"issue", "jolly", "knead", "lemon", "mango", "noise", "olive", "peach", "quiet", "radar",
+// 		"siren", "tulip", "uncle", "voice", "world", "xerox", "yield", "zebra", "abuse", "bride",
+// 		"charm", "dance", "early", "flame", "grade", "house", "igloo", "joker", "knack", "lemon",
+// 		"mango", "novel", "ocean", "piano", "queen", "radio", "sunny", "table", "umbra", "vodka",
+// 		"water", "xenon", "yield", "zebra", "acorn", "bloom", "candy", "dream", "eager", "fable",
+// 		"glory", "hedge", "ivory", "jolly", "knock", "lemon", "mango", "night", "oasis", "proud",
+// 		"quail", "radio", "sugar", "table", "uncle", "virus", "wreck", "xerox", "yield", "zebra",
+// 		"abide", "beach", "chair", "dance", "early", "flute", "grain", "horse", "igloo", "joker",
+// 		"knack", "lemon", "mango", "noise", "olive", "peace", "quiet", "radar", "siren", "tulip",
+// 		"uncle", "vivid", "world", "xerox", "yield", "zebra", "abuse", "badge", "chair", "dance",
+// 		"early", "flame", "grape", "house", "igloo", "jolly", "knock", "lemon", "mango", "novel",
+// 		"ocean", "pearl", "quiet", "radar", "sugar", "table", "umbra", "vodka", "water", "xerox",
+// 		"yield", "zebra", "abide", "bloom", "candy", "dance", "early", "fable", "glory", "hazel",
+// 		"issue", "jolly", "knead", "lemonn"	  
+// ];
 
-let dictionary = ["apple", "beach", "chair", "dance", "earth", "fruit", "grape", "house", "igloo", "jolly",
-		"knife", "lemon", "mango", "navy", "ocean", "pearl", "queen", "radio", "sunny", "table",
-		"umbra", "vodka", "water", "xerox", "yacht", "zebra", "abuse", "badge", "chair", "dance",
-		"early", "flute", "grain", "horse", "igloo", "joker", "knock", "lemon", "mango", "night",
-		"oasis", "peace", "quilt", "radio", "sugar", "table", "uncle", "virus", "wreck", "xenon",
-		"yield", "zebra", "abide", "baker", "cable", "daisy", "elite", "frank", "glide", "hazel",
-		"issue", "jolly", "knead", "lemon", "mango", "noise", "olive", "peach", "quiet", "radar",
-		"siren", "tulip", "uncle", "voice", "world", "xerox", "yield", "zebra", "abuse", "bride",
-		"charm", "dance", "early", "flame", "grade", "house", "igloo", "joker", "knack", "lemon",
-		"mango", "novel", "ocean", "piano", "queen", "radio", "sunny", "table", "umbra", "vodka",
-		"water", "xenon", "yield", "zebra", "acorn", "bloom", "candy", "dream", "eager", "fable",
-		"glory", "hedge", "ivory", "jolly", "knock", "lemon", "mango", "night", "oasis", "proud",
-		"quail", "radio", "sugar", "table", "uncle", "virus", "wreck", "xerox", "yield", "zebra",
-		"abide", "beach", "chair", "dance", "early", "flute", "grain", "horse", "igloo", "joker",
-		"knack", "lemon", "mango", "noise", "olive", "peace", "quiet", "radar", "siren", "tulip",
-		"uncle", "vivid", "world", "xerox", "yield", "zebra", "abuse", "badge", "chair", "dance",
-		"early", "flame", "grape", "house", "igloo", "jolly", "knock", "lemon", "mango", "novel",
-		"ocean", "pearl", "quiet", "radar", "sugar", "table", "umbra", "vodka", "water", "xerox",
-		"yield", "zebra", "abide", "bloom", "candy", "dance", "early", "fable", "glory", "hazel",
-		"issue", "jolly", "knead", "lemonn"	  
-];
-let wordToGuess = dictionary[Math.floor(Math.random() * dictionary.length - 1)];
+let wordToGuess;
 
-// async function secretWord (){
-// 	const url = 'https://random-words5.p.rapidapi.com/getMultipleRandom?count=15&wordLength=5';
-// const options = {
-// 	method: 'GET',
-// 	headers: {
-// 		'X-RapidAPI-Key': '038067ceaamshd28482b59046714p19a668jsn3602b0ecd893',
-// 		'X-RapidAPI-Host': 'random-words5.p.rapidapi.com'
-// 	}
-// };
+async function secretWord (){
+	const url = 'https://random-word-api.p.rapidapi.com/L/5';
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '04bc19bd87mshd399b62baa34ec3p180442jsn9245eaaae5da',
+		'X-RapidAPI-Host': 'random-word-api.p.rapidapi.com'
+	}
+};
+try {
+	const response = await fetch(url, options);
+	const result = await response.json();
+	console.log(result.word);
+	wordToGuess = result.word;
+	loader.style.display = 'none';
+} catch (error) {
+	console.error(error);
+}
+}
 
-// try {
-// 	const response = await fetch(url, options);
-// 	const result = await response.json();
-// 	dictionary = [...result];
-// 	getWord();
-// } catch (error) {
-// 	console.error(error);
-// }
-// }
-
+secretWord();
 // let getWord = () => {
 // 	if(dictionary.length === 0) return;
 // 	if (dictionary.length > 0) {
 // 		loader.style.display = 'none';
+// 		wordToGuess = dictionary[Math.floor(Math.random() * dictionary.length - 1)];
 // 		return wordToGuess;
 // 	}
-
-
 	
 // }
 
@@ -93,7 +95,7 @@ let retrieveWord = () => {
 	return gameState.data[gameState.row].reduce((than, now) => than + now).toLowerCase();
 };
 let correctWord = (word) => {
-	return dictionary.includes(word);
+	return wordToGuess.includes(word);
 };
 let showWord = (guess) => {
 	
@@ -109,6 +111,7 @@ let showWord = (guess) => {
 			gridBox.classList.add("tileAnimation");
 			gridBox.classList.add("wrong");
 		} else {
+			gridBox.classList.add("tileAnimation");
 			gridBox.classList.add("empty");
 
 		}
@@ -125,13 +128,21 @@ let showWord = (guess) => {
 let isALetter = (key) => {
 	return key.length === 1 && key.match(/[a-z]/i);
 };
+let glitch = (gridBox) => {
+	gridBox.forEach(box => {
+		gridBox.classList.add("glitch");
+		gridBox.addEventListener("animationend", () => {
+			gridBox.classList.remove("glitch");
+		});
+	});
+};
 let newLetter = (letter) => {
 	if (gameState.column === 5) {
-		gameState.row++;
 		return;}
+
 	let gridBox = document.getElementById(`gridbox-${gameState.row}-${gameState.column}`);
 	gameState.data[gameState.row][gameState.column] =`${letter}`;
-	gridBox.innerHTML = gameState.data[gameState.row][gameState.column];
+	gridBox.textContent = gameState.data[gameState.row][gameState.column];
 
 	gameState.column++;
 };
@@ -200,4 +211,13 @@ inputKeys.addEventListener('click', (e) => {
 	} else {
 		newLetter(key)
 	}
-});
+	let gridBox = document.querySelectorAll(`gridbox-${gameState.row}-${gameState.column}`);
+		for(let i = 0; i < WORDLENGTH; i++) {
+			if(key === gridBox.textContent){
+			e.target.classList.add('correct');
+		} else if (wordToGuess[i].contains(key)){
+			e.target.classList.add('wrong');
+		}else if (!wordToGuess[i].contains(key)){
+			e.target.classList.add('empty');
+		}
+}});
