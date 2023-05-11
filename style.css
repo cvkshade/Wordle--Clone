@@ -64,14 +64,14 @@ body {
     text-transform: uppercase;
 
 }
-.display div.correct, span.correct {
+main .btns button.correct, .display div.correct, span.correct {
     background-color: var(--right);
 }
-.display div.wrong, span.wrong {
+main .btns button.wrong, .display div.wrong, span.wrong {
     background-color: var(--wrong);
 }
 
-.display div.empty, span.empty {
+.main .btns button.empty, .display div.empty, span.empty {
     background-color: var(--empty);
 }
 .btns {
@@ -227,6 +227,9 @@ loadAnimation:nth-child(1) {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    .main {
+        height: 100%;
     }
     
 }

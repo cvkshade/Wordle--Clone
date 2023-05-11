@@ -21,7 +21,6 @@ const WORDLENGTH = 5;
 // 		"yield", "zebra", "abide", "bloom", "candy", "dance", "early", "fable", "glory", "hazel",
 // 		"issue", "jolly", "knead", "lemonn"	  
 // ];
-const buttons = document.querySelectorAll('[data-key');
 
 let wordToGuess;
 
@@ -115,7 +114,6 @@ let showWord = (guess) => {
 
 		}
 	}
-	colorKeyboard();
 	const winner = wordToGuess === guess;
 	const gameEnd = gameState.row === 6;
 	if (winner) {
@@ -126,20 +124,20 @@ let showWord = (guess) => {
 
 };
 
-let colorKeyboard = () => {
-	for (let i = 0; i < buttons.length; i++) {
-		let letter = retrieveWord().toLowerCase();
-		let key = buttons[i].textContent.toLowerCase();
-		// console.log(key);
-		// console.log(letter);
+let colorKeyboard = (e) => {
+	for (let i = 0; i < 5; i++) {
+		let letter = retrieveWord().toLowerCase;
+		let key = e.target.textContent;
 
 	
-		if (letter === key) {
-			buttons[i].classList.add("correct");
+		if (letter[i] === wordToGuess[i]) {
+			if(button === letter[i]){
+			e.target.classList.add("correct");
+		}
 		} else if (wordToGuess.includes(key)) {
-			buttons[i].classList.add("wrong");
-		} else {
-			buttons[i].classList.add("empty");
+			e.target.classList.add("wrong");
+		} else if ( !wordToGuess.includes(key) ){
+			e.target.classList.add("empty");
 
 		}
 	}
@@ -172,7 +170,7 @@ let purgeLetter = () => {
 	gameState.column--;
 	renderGrid();
 };
-let evaluate = () => {
+let evaluate = (e) => {
 	if (gameState.column === 5) {
 		const activeWord = retrieveWord();
 		if (correctWord(activeWord)) {
@@ -188,6 +186,7 @@ let evaluate = () => {
 
 		}
 	}
+	colorKeyboard(e);
 };
 let getInput = () => {
 	document.addEventListener('keydown', (e) => {
@@ -197,7 +196,7 @@ let getInput = () => {
 		switch (input) {
 			case 'Enter':
 
-				evaluate();
+				evaluate(e);
 
 				break;
 			case 'Backspace':
@@ -230,7 +229,7 @@ inputKeys.addEventListener('click', (e) => {
 		 purgeLetter();
 		return;
 	} else if (e.target.classList.contains('enter')) {
-		evaluate();
+		evaluate(key);
 		return;
 	} else {
 		newLetter(key)
