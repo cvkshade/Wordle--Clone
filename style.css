@@ -25,6 +25,7 @@ body {
 .main {
     
     min-width:  100%;
+    min-height: 100vh;
     display: grid;
     grid-template-rows:  4fr 1.5fr;
    gap: 0.5rem;
@@ -113,7 +114,7 @@ body {
     color: #000;
     transition: height 4000ms linear;
 }
-.animation {
+.flipAnimation {
     animation: flip 1s ease-in-out;
 }
 

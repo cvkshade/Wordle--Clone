@@ -104,12 +104,12 @@ let showWord = (guess) => {
 		let letter = gridBox.textContent;
 		if (letter === wordToGuess[i]) {
 			gridBox.classList.add("correct");
-			gridBox.classList.add("animate__flipInX");
+			gridBox.classList.add("flipAnimation");
 		} else if (wordToGuess.includes(letter)) {
-			gridBox.classList.add("animate__flipInX");
+			gridBox.classList.add("flipAnimation");
 			gridBox.classList.add("wrong");
 		} else {
-			gridBox.classList.add("animate__flipInX");
+			gridBox.classList.add("flipAnimation");
 			gridBox.classList.add("empty");
 
 		}
