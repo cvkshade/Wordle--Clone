@@ -10,7 +10,7 @@
     margin: 0;
 }
 body {
-    min-height: 100vh;
+    max-height: 100vh;
     justify-content: center;
     font-family: Arial, Helvetica, sans-serif;
     background-image: url(./asset/background.jpg);
@@ -28,7 +28,6 @@ body {
     display: grid;
     grid-template-rows:  4fr 1.5fr;
    gap: 0.5rem;
-    /* height: 90rem; */
     align-items: space-between;
 }
 
@@ -49,8 +48,7 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem;
-    margin: 4rem 0  ;
-    height: fit-content;
+    margin: 1rem 0  ;
 }
 .display div  {
     height: 56px;
@@ -99,6 +97,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;
     user-select: none;
+    transition: 900ms ease-out;
 }
 .enter {
     background-color: green;
@@ -109,7 +108,7 @@ body {
     grid-column: span 2;
 }
 .aphabet:hover {
-    background-color: #fff;
+    background-color: #ffffff6b;
     color: #000;
     transition: height 4000ms linear;
 }

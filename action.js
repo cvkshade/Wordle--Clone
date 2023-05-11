@@ -202,7 +202,8 @@ gamestart();
 const inputKeys = document.querySelector('.btns');
 
 inputKeys.addEventListener('click', (e) => {
-	let key = e.target.textContent;
+	
+	let key = e.target.getAttribute('data-key');
 	if (!e.target.classList.contains('aphabet')) return;
 	if (e.target.classList.contains('delete')) {
 		 purgeLetter();
@@ -211,7 +212,6 @@ inputKeys.addEventListener('click', (e) => {
 		evaluate();
 		return;
 	} else {
-		if(wordToGuess === guess) return;
 		newLetter(key)
 	}
 	let gridBox = document.querySelectorAll(`gridbox-${gameState.row}-${gameState.column}`);
@@ -227,5 +227,3 @@ inputKeys.addEventListener('click', (e) => {
 
 const buttons = document.querySelectorAll('[data-key');
 
-
-console.log(buttons);
