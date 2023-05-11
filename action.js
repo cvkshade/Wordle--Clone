@@ -21,6 +21,7 @@ const WORDLENGTH = 5;
 // 		"yield", "zebra", "abide", "bloom", "candy", "dance", "early", "fable", "glory", "hazel",
 // 		"issue", "jolly", "knead", "lemonn"	  
 // ];
+const buttons = document.querySelectorAll('[data-key');
 
 let wordToGuess;
 
@@ -114,6 +115,7 @@ let showWord = (guess) => {
 
 		}
 	}
+	colorKeyboard();
 	const winner = wordToGuess === guess;
 	const gameEnd = gameState.row === 6;
 	if (winner) {
@@ -123,9 +125,29 @@ let showWord = (guess) => {
 	}
 
 };
+
+let colorKeyboard = () => {
+	for (let i = 0; i < buttons.length; i++) {
+		let letter = retrieveWord().toLowerCase();
+		let key = buttons[i].textContent.toLowerCase();
+		// console.log(key);
+		// console.log(letter);
+
+	
+		if (letter === key) {
+			buttons[i].classList.add("correct");
+		} else if (wordToGuess.includes(key)) {
+			buttons[i].classList.add("wrong");
+		} else {
+			buttons[i].classList.add("empty");
+
+		}
+	}
+};
 let isALetter = (key) => {
 	return key.length === 1 && key.match(/[a-z]/i);
 };
+
 let glitch = (gridBox) => {
 	gridBox.forEach(box => {
 		gridBox.classList.add("glitch");
@@ -224,5 +246,6 @@ inputKeys.addEventListener('click', (e) => {
 		}
 }});
 
-const buttons = document.querySelectorAll('[data-key');
+
+
 
