@@ -11,7 +11,6 @@
 }
 body {
     min-height: 100vh;
-    height: 100vh;
     justify-content: center;
     font-family: Arial, Helvetica, sans-serif;
     background-image: url(./asset/background.jpg);
@@ -27,39 +26,12 @@ body {
     
     min-width:  100%;
     display: grid;
-    grid-template-rows:  4fr auto;
-   height: 100%;
+    grid-template-rows:  4fr 1.5fr;
    gap: 0.5rem;
     /* height: 90rem; */
-    /* height: 100%; */
     align-items: space-between;
 }
-.hud {
-    background-color: var(--background);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-    color: #fff;
-    /* position: absolute; */
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3rem;
-    border-bottom: 2px solid black;
-}
-.hud span {
-    display: flex;
-    align-items: center;
-    font-size: 2rem;
-}
-.lives {
-    color: chocolate;
-    padding-left: 0.5rem;
-    font-size: 2rem;
-    font-weight: 900;
-    text-shadow: 0 0 2px gold;
-}
+
 .alertBox {
     color: chocolate;
     padding-left: 0.5rem;
@@ -77,6 +49,7 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem;
+    margin: 4rem 0  ;
     height: fit-content;
 }
 .display div  {
@@ -145,7 +118,7 @@ body {
 }
 
 .overlay {
-    background: linear-gradient(360deg,black, black, transparent, black, black);
+    background: linear-gradient(360deg,black, rgba(0, 0, 0, 0.911), transparent, rgba(0, 0, 0, 0.911), black);
     z-index: 100;    
     position: absolute;
     top: 0;
@@ -155,6 +128,10 @@ body {
     display: grid;
     place-items: center;
     place-content: center;
+}
+
+.correctBtn {
+    background-color: var(--right);
 }
 
 @keyframes disappear {

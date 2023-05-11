@@ -1,7 +1,6 @@
 const loader = document.querySelector('.overlay');
 const WORDLENGTH = 5;
-// document.addEventListener('DOMContentLoaded', () => loader.style.display = 'none');
-// let dictionary = ["apple", "beach", "chair", "dance", "earth", "fruit", "grape", "house", "igloo", "jolly",
+// let animateddictionary = ["apple", "beach", "chair", "dance", "earth", "fruit", "grape", "house", "igloo", "jolly",
 // 		"knife", "lemon", "mango", "navy", "ocean", "pearl", "queen", "radio", "sunny", "table",
 // 		"umbra", "vodka", "water", "xerox", "yacht", "zebra", "abuse", "badge", "chair", "dance",
 // 		"early", "flute", "grain", "horse", "igloo", "joker", "knock", "lemon", "mango", "night",
@@ -106,12 +105,12 @@ let showWord = (guess) => {
 		let letter = gridBox.textContent;
 		if (letter === wordToGuess[i]) {
 			gridBox.classList.add("correct");
-			gridBox.classList.add("tileAnimation");
+			gridBox.classList.add("animate__flipInX");
 		} else if (wordToGuess.includes(letter)) {
-			gridBox.classList.add("tileAnimation");
+			gridBox.classList.add("animate__flipInX");
 			gridBox.classList.add("wrong");
 		} else {
-			gridBox.classList.add("tileAnimation");
+			gridBox.classList.add("animate__flipInX");
 			gridBox.classList.add("empty");
 
 		}
@@ -172,6 +171,8 @@ let evaluate = () => {
 let getInput = () => {
 	document.addEventListener('keydown', (e) => {
 		let input = e.key;
+		let guess = retrieveWord();
+		
 		switch (input) {
 			case 'Enter':
 
@@ -182,6 +183,7 @@ let getInput = () => {
 				purgeLetter();
 				break;
 		}
+		if(wordToGuess === guess) return;
 
 		if (isALetter(input)) {
 			newLetter(input);
@@ -209,6 +211,7 @@ inputKeys.addEventListener('click', (e) => {
 		evaluate();
 		return;
 	} else {
+		if(wordToGuess === guess) return;
 		newLetter(key)
 	}
 	let gridBox = document.querySelectorAll(`gridbox-${gameState.row}-${gameState.column}`);
@@ -221,3 +224,8 @@ inputKeys.addEventListener('click', (e) => {
 			e.target.classList.add('empty');
 		}
 }});
+
+const buttons = document.querySelectorAll('[data-key');
+
+
+console.log(buttons);
