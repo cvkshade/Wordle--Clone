@@ -238,6 +238,7 @@ loadAnimation:nth-child(1) {
     .display {
         margin: auto;
         height: 60%;
+        margin-bottom: 2rem;
     }
     .btns {
         height: 25%;
