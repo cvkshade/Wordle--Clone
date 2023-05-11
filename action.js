@@ -36,11 +36,10 @@ const options = {
 try {
 	const response = await fetch(url, options);
 	const result = await response.json();
-	console.log(result.word);
 	wordToGuess = result.word;
 	loader.style.display = 'none';
 } catch (error) {
-	console.error(error);
+	console.error("Sorry The API is not Responding");
 }
 }
 
