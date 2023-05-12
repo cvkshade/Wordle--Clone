@@ -278,11 +278,10 @@ loadAnimation:nth-child(1) {
         justify-content: space-around;
         align-items: center;
     }
-    .display {
+    /* .display {
         margin: auto;
-        height: 60%;
         /* margin-bottom: 2rem; */
-    }
+    } */
     .btns {
         /* height: 35%; */
         width: 100%;
