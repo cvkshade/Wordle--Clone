@@ -21,7 +21,6 @@ body {
     display: grid;
     overflow: hidden;
     grid-template-rows: 4fr 1.5fr;
-    min-height: 100vh;
 
 }
 .play {
