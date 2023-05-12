@@ -281,7 +281,7 @@ loadAnimation:nth-child(1) {
     /* .display {
         margin: auto;
         /* margin-bottom: 2rem; */
-    } */
+    /* } */ 
     .btns {
         /* height: 35%; */
         width: 100%;
@@ -295,7 +295,7 @@ loadAnimation:nth-child(1) {
         justify-content: center;
     }
     .game {
-        align-items: flex-start;
+        align-items: center;
     }
     
 }
