@@ -287,6 +287,7 @@ loadAnimation:nth-child(1) {
         width: 100%;
         grid-template-columns: repeat(10, auto);
         gap: 0.4rem;
+        margin-bottom: 1rem;
     }
     .addInfo{
         /* background-color: #000; */
