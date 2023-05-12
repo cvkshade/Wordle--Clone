@@ -139,7 +139,7 @@ main .btns button.wrong, .display div.wrong, span.wrong {
     right: 0;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .correctBtn {
@@ -154,7 +154,7 @@ main .btns button.wrong, .display div.wrong, span.wrong {
     background-color: #fff;
     width: fit-content;
     font-size: 3rem;
-    display: none;
+    display: flex;
     place-items: center;
     position: relative;
     /* height: 4rem; */
@@ -194,7 +194,7 @@ main .btns button.wrong, .display div.wrong, span.wrong {
 }
 .overview {
     width: 50vw;
-    display: flex;
+    display: none;
     flex-direction: column;
     background: linear-gradient(360deg,black, rgba(0, 0, 0, 0.911), transparent, rgba(0, 0, 0, 0.911), black);
 
