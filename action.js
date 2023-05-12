@@ -1,4 +1,4 @@
-const loader = document.querySelector('.overlay');
+const overlay = document.querySelector('.overlay');
 const WORDLENGTH = 5;
 // let animateddictionary = ["apple", "beach", "chair", "dance", "earth", "fruit", "grape", "house", "igloo", "jolly",
 // 		"knife", "lemon", "mango", "navy", "ocean", "pearl", "queen", "radio", "sunny", "table",
@@ -37,22 +37,14 @@ try {
 	const response = await fetch(url, options);
 	const result = await response.json();
 	wordToGuess = result.word;
-	loader.style.display = 'none';
+	overlay.style.display = 'none';
 } catch (error) {
 	console.error("Sorry The API is not Responding");
 }
 }
 
+
 secretWord();
-// let getWord = () => {
-// 	if(dictionary.length === 0) return;
-// 	if (dictionary.length > 0) {
-// 		loader.style.display = 'none';
-// 		wordToGuess = dictionary[Math.floor(Math.random() * dictionary.length - 1)];
-// 		return wordToGuess;
-// 	}
-	
-// }
 
 let gameState = {
 	data: Array(6).fill().map(() => Array(5).fill('')),
@@ -96,7 +88,10 @@ let correctWord = (word) => {
 	return wordToGuess.includes(word);
 };
 let showWord = (guess) => {
-	
+	let loader = document.querySelector('.loader')
+	let winningWord = document.querySelector('.wordBowl')
+	let overview = document.querySelector('.overview')
+
 	let row = gameState.row;
 	for (let i = 0; i < 5; i++) {
 		let key = document.querySelector('aphabet')
@@ -117,31 +112,27 @@ let showWord = (guess) => {
 	const winner = wordToGuess === guess;
 	const gameEnd = gameState.row === 6;
 	if (winner) {
-		alert("winner");
+
+		// alert("winner");
+	    overlay.style.display = 'flex';
+		loader.style.display = 'none';
+		overview.style.display = 'flex';
+		winningWord.innerHTML = wordToGuess;
+		
+
 	} else if (gameEnd) {
 		alert("gameEnd");
 	}
 
 };
 
-let colorKeyboard = (e) => {
-	for (let i = 0; i < 5; i++) {
-		let letter = retrieveWord().toLowerCase;
-		let key = e.target.textContent;
+let colorKeyboard = (key) => {
+		let word = retrieveWord();
+		console.log(key, word);
 
 	
-		if (letter[i] === wordToGuess[i]) {
-			if(button === letter[i]){
-			e.target.classList.add("correct");
-		}
-		} else if (wordToGuess.includes(key)) {
-			e.target.classList.add("wrong");
-		} else if ( !wordToGuess.includes(key) ){
-			e.target.classList.add("empty");
-
-		}
-	}
 };
+
 let isALetter = (key) => {
 	return key.length === 1 && key.match(/[a-z]/i);
 };
@@ -155,9 +146,29 @@ let glitch = (gridBox) => {
 	});
 };
 let newLetter = (letter) => {
-	if (gameState.column === 5) {
-		return;}
+	if (gameState.column === 5  ) {
+		for (let i = 0; i < gameState.column; i++){
+			let gridBox = document.getElementById(`gridbox-${gameState.row}-${i}`);
+			gridBox.classList.add("glitch");
+		}
+		return;
+	}
+	let guessWord = retrieveWord();
+	let buttons = document.querySelectorAll('.aphabet');
+	for (let i = 0; i < buttons.length; i++){
+		for(let j = 0; j < gameState.column.length; j++){
+		if (guessWord[i] === wordToGuess[i] && guessWord[i] === buttons[i].textContent){
+			buttons[i].classList.add("correct");
+		} 
+	}
+		
+		if(wordToGuess.includes(buttons[i].textContent) && buttons[i].textContent === letter){
+			buttons[i].classList.add("wrong");
+		} else if(!wordToGuess.includes(buttons[i].textContent) && buttons[i].textContent === letter){
+			buttons[i].classList.add("empty");
 
+		} 
+	};
 	let gridBox = document.getElementById(`gridbox-${gameState.row}-${gameState.column}`);
 	gameState.data[gameState.row][gameState.column] =`${letter}`;
 	gridBox.textContent = gameState.data[gameState.row][gameState.column];
@@ -170,7 +181,7 @@ let purgeLetter = () => {
 	gameState.column--;
 	renderGrid();
 };
-let evaluate = (e) => {
+let evaluate = () => {
 	if (gameState.column === 5) {
 		const activeWord = retrieveWord();
 		if (correctWord(activeWord)) {
@@ -186,7 +197,6 @@ let evaluate = (e) => {
 
 		}
 	}
-	colorKeyboard(e);
 };
 let getInput = () => {
 	document.addEventListener('keydown', (e) => {
@@ -196,7 +206,7 @@ let getInput = () => {
 		switch (input) {
 			case 'Enter':
 
-				evaluate(e);
+				evaluate(input);
 
 				break;
 			case 'Backspace':
@@ -232,18 +242,9 @@ inputKeys.addEventListener('click', (e) => {
 		evaluate(key);
 		return;
 	} else {
-		newLetter(key)
+		newLetter(key, e);
 	}
-	let gridBox = document.querySelectorAll(`gridbox-${gameState.row}-${gameState.column}`);
-		for(let i = 0; i < WORDLENGTH; i++) {
-			if(key === gridBox.textContent){
-			e.target.classList.add('correct');
-		} else if (wordToGuess[i].contains(key)){
-			e.target.classList.add('wrong');
-		}else if (!wordToGuess[i].contains(key)){
-			e.target.classList.add('empty');
-		}
-}});
+	});
 
 
 

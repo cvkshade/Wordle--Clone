@@ -21,11 +21,21 @@ body {
     position: relative;
 
 }
+.glitch {
+    animation: glitch 500ms linear;
+}
+@keyframes glitch {
+    0% { transform: translateX(-8%)}
+    25% { transform: translateX(8%)}
+    50% { transform: translateX(-11%)}
+    100% { transform: translateX(11%)}
+}
 
 .main {
     
     min-width:  100%;
     min-height: 100vh;
+    max-height: 100vh;
     display: grid;
     grid-template-rows:  4fr 1.5fr;
    gap: 0.5rem;
@@ -124,11 +134,12 @@ main .btns button.wrong, .display div.wrong, span.wrong {
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 0;
+    /* bottom: 0; */
+    height: 100%;
     right: 0;
-    display: grid;
-    place-items: center;
-    place-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .correctBtn {
@@ -143,7 +154,7 @@ main .btns button.wrong, .display div.wrong, span.wrong {
     background-color: #fff;
     width: fit-content;
     font-size: 3rem;
-    display: flex;
+    display: none;
     place-items: center;
     position: relative;
     /* height: 4rem; */
@@ -180,6 +191,38 @@ main .btns button.wrong, .display div.wrong, span.wrong {
     font-weight: bolder;
     margin: 0.5rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5 );
+}
+.overview {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(360deg,black, rgba(0, 0, 0, 0.911), transparent, rgba(0, 0, 0, 0.911), black);
+
+    
+}
+.anima {
+    width: 100%;
+    color: #fff;
+    font-size: 1.3rem;
+    padding: 1rem;
+    display: flex;
+    background: transparent;
+    
+    flex-direction: column;
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    place-content: center;
+}
+.anima img {
+    width: 70%;
+    margin: 1rem auto;
+    background-color: #ffffff02;
+}
+.overview .info {
+    background-color: #fff;
+    text-align: center;
+    padding: 1rem 0;
 }
 @keyframes flip {
     0% { transform: scaleY(1);}
