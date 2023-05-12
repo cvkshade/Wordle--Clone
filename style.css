@@ -18,10 +18,12 @@ body {
     background-size: cover;
     position: relative;
     background-color: #000;
-    min-height: 99vh;
-    display: grid;
+    min-height: 100vh;
+    display: flex;
     overflow: hidden;
-    grid-template-rows: 4fr 1.5fr;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 1rem;
 
 }
 .play {
