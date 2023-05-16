@@ -1,5 +1,7 @@
 const overlay = document.querySelector('.overlay');
+const rePlay = document.querySelector('.playAgain');
 const WORDLENGTH = 5;
+let COUNTER = 0;
 // let animateddictionary = ["apple", "beach", "chair", "dance", "earth", "fruit", "grape", "house", "igloo", "jolly",
 // 		"knife", "lemon", "mango", "navy", "ocean", "pearl", "queen", "radio", "sunny", "table",
 // 		"umbra", "vodka", "water", "xerox", "yacht", "zebra", "abuse", "badge", "chair", "dance",
@@ -23,7 +25,7 @@ const WORDLENGTH = 5;
 // ];
 
 let wordToGuess;
-
+let wordArray;
 async function secretWord (){
 	const url = 'https://random-word-api.p.rapidapi.com/L/5';
 const options = {
@@ -38,14 +40,17 @@ try {
 	const result = await response.json();
 	wordToGuess = result.word;
 	overlay.style.display = 'none';
+	displayGuessWord();
 } catch (error) {
 	console.error("Sorry The API is not Responding");
 }
 }
 
 
-secretWord();
-
+let displayGuessWord = () => {
+		wordArray = Array.from(wordToGuess);
+		// return wordArray;
+};
 let gameState = {
 	data: Array(6).fill().map(() => Array(5).fill('')),
 	row: 0,
@@ -69,6 +74,22 @@ let newBox = (parent, row, column, input) => {
 	return gridBox;
 };
 
+
+let createAnswer = (ele) => {
+	for (let i = 0; i < wordArray.length; i++) {
+		text = wordArray[i];
+		winningWord(text, ele);
+	}
+}
+let winningWord = ( input, ele) => { 
+	const wordBox = document.createElement('div');
+	wordBox.setAttribute('class', 'wordbox');
+	wordBox.textContent = input;
+	ele.appendChild(wordBox);
+	return wordBox;
+};
+
+
 let createGrid = (parent) => {
 	const container = document.createElement('div');
 	container.className = 'display';
@@ -87,14 +108,32 @@ let retrieveWord = () => {
 let correctWord = (word) => {
 	return wordToGuess.includes(word);
 };
-let showWord = (guess) => {
-	let loader = document.querySelector('.loader')
-	let winningWord = document.querySelector('.wordBowl')
-	let overview = document.querySelector('.overview')
 
+async function validWord (word) {
+	const url = `https://dictionary-data-api.p.rapidapi.com/definition/${word}`;
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '04bc19bd87mshd399b62baa34ec3p180442jsn9245eaaae5da',
+		'X-RapidAPI-Host': 'dictionary-data-api.p.rapidapi.com'
+	}
+};
+
+try {
+	const response = await fetch(url, options);
+	const result = await response.text();
+	console.log(result);
+	return true;
+} catch (error) {
+	console.error(error);
+	return false;
+}
+}
+let showWord = (guess) => {
+	
+	COUNTER++;
 	let row = gameState.row;
 	for (let i = 0; i < 5; i++) {
-		let key = document.querySelector('aphabet')
 		let gridBox = document.getElementById(`gridbox-${row}-${i}`);
 		let letter = gridBox.textContent;
 		if (letter === wordToGuess[i]) {
@@ -113,25 +152,66 @@ let showWord = (guess) => {
 	const gameEnd = gameState.row === 6;
 	if (winner) {
 
+	let loader = document.querySelector('.loader');
+	let overview = document.querySelector('.overview');
+	let gameEnd = document.querySelector('.gameEnd');
+	let answer = document.querySelector('.wordBowl')
+
+
+	overlay.style.display = 'flex';
+	loader.style.display = 'none';
+	gameEnd.style.display = 'none';
+	overview.style.display = 'flex';
+
 		// alert("winner");
-	    overlay.style.display = 'flex';
-		loader.style.display = 'none';
-		overview.style.display = 'flex';
-		winningWord.innerHTML = wordToGuess;
+	    createAnswer(answer);
+		console.log("winner");
 		
 
 	} else if (gameEnd) {
-		alert("gameEnd");
+		// alert("gameEnd");
+		let  = document.querySelector('.playAgain');
+		let gameEnd = document.querySelector('.gameEnd');
+		let loader = document.querySelector('.loader');
+		let failAnswer = document.querySelector('.failWordBowl');
+
+
+		loader.style.display = 'none';
+		overview.style.display = 'none';
+		gameEnd.style.display = 'flex';
+
+	createAnswer(failAnswer);
+
+		createAnswer();
 	}
 
 };
+let gameEnding = () => {
+	if(gameState.row === 6){
+		alert('Game ended successfully')
+	}
+};
+gameEnding();
+// let colorKeyboard = (word) => {
 
-let colorKeyboard = (key) => {
-		let word = retrieveWord();
-		console.log(key, word);
+// 	let buttons = document.querySelectorAll('.aphabet');
+// 	for (let i = 0; i < buttons.length; i++){
+// 		for(let j = 0; j < 5; j++){
+// 			let gridBox = document.getElementById(`gridbox-${row}-${j}`);
+// 			let letter = gridBox.textContent;
+// 		if (letter === buttons[i].textContent && gridBox.classList.includes('correct')){
+// 			buttons[i].classList.add("correct");
+// 		}else if(word.includes(buttons[i].textContent) && wordToGuess.includes(buttons[i].textContent)){
+// 			buttons[i].classList.add("wrong");
+// 		} else if(!wordToGuess.includes(buttons[i].textContent) && word.includes(buttons[i].textContent)){
+// 			buttons[i].classList.add("empty");
+
+// 		} 
+// 	};
+// 	};
 
 	
-};
+// };
 
 let isALetter = (key) => {
 	return key.length === 1 && key.match(/[a-z]/i);
@@ -153,22 +233,7 @@ let newLetter = (letter) => {
 		}
 		return;
 	}
-	let guessWord = retrieveWord();
-	let buttons = document.querySelectorAll('.aphabet');
-	for (let i = 0; i < buttons.length; i++){
-		for(let j = 0; j < gameState.column.length; j++){
-		if (guessWord[i] === wordToGuess[i] && guessWord[i] === buttons[i].textContent){
-			buttons[i].classList.add("correct");
-		} 
-	}
-		
-		if(wordToGuess.includes(buttons[i].textContent) && buttons[i].textContent === letter){
-			buttons[i].classList.add("wrong");
-		} else if(!wordToGuess.includes(buttons[i].textContent) && buttons[i].textContent === letter){
-			buttons[i].classList.add("empty");
-
-		} 
-	};
+	
 	let gridBox = document.getElementById(`gridbox-${gameState.row}-${gameState.column}`);
 	gameState.data[gameState.row][gameState.column] =`${letter}`;
 	gridBox.textContent = gameState.data[gameState.row][gameState.column];
@@ -182,21 +247,24 @@ let purgeLetter = () => {
 	renderGrid();
 };
 let evaluate = () => {
+	const activeWord = retrieveWord();
 	if (gameState.column === 5) {
-		const activeWord = retrieveWord();
-		if (correctWord(activeWord)) {
+		if (validWord(activeWord)) {
 			showWord(activeWord);
+			// colorKeyboard(activeWord);
 			gameState.row++;
 			gameState.column = 0;
-		} else if (!correctWord(activeWord)) {
+		} else if (!validWord(activeWord)) {
+			return;
 			showWord(activeWord);
-			gameState.row++;
+			// gameState.row++;
 			gameState.column = 0;
 		}else {
 			alert('You can doit');
 
 		}
 	}
+	// colorKeyboard(activeWord);
 };
 let getInput = () => {
 	document.addEventListener('keydown', (e) => {
@@ -226,6 +294,8 @@ const gamestart = () => {
 	let game = document.querySelector('.game');
 	createGrid(game);
 	getInput();
+	secretWord();
+
 };
 gamestart();
 
@@ -246,6 +316,28 @@ inputKeys.addEventListener('click', (e) => {
 	}
 	});
 
+let restartGame = () => {
 
+	let game = document.querySelector('.game');
+	let gridBox = document.querySelector('.gridbox');
+	gridBox.textContent = "";
+	gameState.row = 0;
+	gameState.column = 0;
+	game.innerHTML = "";
+	for (let i = 0; i < gameState.data.length; i++) {
+		for (let j = 0; j < gameState.data[i].length; j++) {
+			if(gameState.data[i][j] !== ""){
+				gameState.data[i][j] = '';
+			};
+		};
+	};
+};
+rePlay.addEventListener('click', () => {
+	
+	overlay.style.display = 'none';
+	restartGame()
+	gamestart();
+	console.log('gamestart');
+});
 
 

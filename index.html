@@ -6,18 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wordle by Free Spirit</title>
     <script src="action.js" defer></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="design.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
 </head>
 <body>
     
-        
+        <div class="logo">
+            
+                <span class="correct logoAnimation">W</span><span class="wrong logoAnimation">0</span><span class="empty logoAnimation">R</span><span class="correct logoAnimation">D</span><span class="wrong logoAnimation">L</span><span class="empty logoAnimation">E </span><span class="handler"><span class="clone">Clone</span></span>
+            
+        </div>
         <div class="game">
        
         </div>
         
-        
+        <div class="buttonsSec">
         
         <div class="btns">
             <button class="aphabet" data-key="q">q</button>
@@ -55,7 +59,7 @@
 
         </div>
         
-    
+        </div>
     
     <div class="overlay">
         <div class="loader">
@@ -63,15 +67,31 @@
         </div>
         <div class="overview">
             <div class="anima">
-            <img src="./asset/congrat1.gif" >
-            <p>the winning word was</p>
-
+            <img src="./asset/wordle_big_animation2.gif" >
+            <!-- <p>the winning word was</p> -->
+                <span class="congrats">Congratulations</span>
             </div>
             <div class="info">
-            <p class="wordBowl">Crane</p>
+            <div class="wordBowl"></div>
+            <div class="playAgain"><ion-icon name="refresh"></ion-icon><span class="playText">Play Again</span></div>
+
             </div>
         </div>
-        <!-- <div class="play">Play</div> -->
+        <div class="gameEnd">
+            <div class="anima">
+            <img src="./asset/wordle_big_animation2.gif" >
+            <!-- <p>the winning word was</p> -->
+                <span class="congrats">Sorry</span>
+                <span class="ext-text">the winning word was</span>
+            </div>
+            <div class="info">
+            <div class="failWordBowl"></div>
+            <div class="playAgain"><ion-icon name="refresh"></ion-icon><span class="playText">Play Again</span></div>
+            </div>
+        </div>
+
     </div>
+    <script type="module" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

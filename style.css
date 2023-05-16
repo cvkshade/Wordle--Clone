@@ -16,16 +16,15 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    position: relative;
     background-color: #000;
     min-height: 100vh;
     display: flex;
     overflow: hidden;
     flex-direction: column;
-    justify-content: space-evenly;
-    gap: 1rem;
+    justify-content: space-between;
 
 }
+
 .play {
     display: none;
 }
@@ -49,6 +48,8 @@ body {
     display: flex;
     justify-content: center;
     place-items: center;
+    background-color: #6ca965;
+    height: 30rem;
 }
 .addInfo{
     /* background-color: #000; */
@@ -140,7 +141,7 @@ main .btns button.wrong, .display div.wrong, span.wrong {
     /* bottom: 0; */
     height: 100%;
     right: 0;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 }
@@ -253,14 +254,18 @@ loadAnimation:nth-child(1) {
 }.loadAnimation:nth-child(6) {
     animation-delay: 6000ms;
 }
-
-@media (width < 768px) {
-    .main {
-        grid-template-rows: 1fr auto auto;
+@media (width > 900px) {
+    .game{
+        height: ;
     }
-    .btns {
-        width: 100%;
-    }
+}
+@media (width < 868px ) {
+   .game {
+    height: 60rem;
+   }
+   .btns {
+    margin-bottom: 5px;
+   }
 }
 
 @media (width < 480px) {
@@ -274,12 +279,7 @@ loadAnimation:nth-child(1) {
         justify-content: center;
         align-items: center;
     }
-    .main {
-        height: 100%;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-    }
+
     /* .display {
         margin: auto;
         /* margin-bottom: 2rem; */
@@ -299,6 +299,7 @@ loadAnimation:nth-child(1) {
     }
     .game {
         align-items: center;
+        height: 30rem;
     }
     
 }
