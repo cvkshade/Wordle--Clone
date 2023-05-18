@@ -257,15 +257,21 @@ loadAnimation:nth-child(1) {
     display: none;
     flex-direction: column;
     background: linear-gradient(360deg,black, rgba(0, 0, 0, 0.911), transparent, rgba(0, 0, 0, 0.911), black);
+    transition: display 1000ms ease-in;
 
-    
 }
 .gameEnd {
     width: 50vw;
     display: none;
     flex-direction: column;
     background: linear-gradient(360deg,black, rgba(0, 0, 0, 0.911), transparent, rgba(0, 0, 0, 0.911), black);
-
+    transition: display 1000ms ease-in;
+    
+}
+.failWordBowl {
+    display: flex;
+    justify-content: center;
+    gap: 0.3rem;
     
 }
 .anima {
