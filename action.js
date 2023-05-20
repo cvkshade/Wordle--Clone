@@ -1,5 +1,6 @@
 const overlay = document.querySelector('.overlay');
 const rePlay = document.querySelector('.playAgain');
+const playAgain = document.querySelector('.replay');
 const WORDLENGTH = 5;
 // let animateddictionary = ["apple", "beach", "chair", "dance", "earth", "fruit", "grape", "house", "igloo", "jolly",
 // 		"knife", "lemon", "mango", "navy", "ocean", "pearl", "queen", "radio", "sunny", "table",
@@ -120,12 +121,12 @@ const options = {
 };
 
 try {
-	const response = await fetch(url, options);
-	const result = await response.text();
-	console.log(result);
+	// const response = await fetch(url, options);
+	// const result = await response.text();
+	// console.log(result);
 	return true;
 } catch (error) {
-	console.error(error);
+	// console.error(error);
 	return false;
 }
 }
@@ -136,6 +137,9 @@ let showWord = (guess) => {
 	for (let i = 0; i < 5; i++) {
 		let gridBox = document.getElementById(`gridbox-${row}-${i}`);
 		let letter = gridBox.textContent;
+		if(gridBox.classList.contains('glitch')) {
+			gridBox.classList.remove('glitch');
+		}
 		if (letter === wordToGuess[i]) {
 			gridBox.classList.toggle("correct");
 			gridBox.classList.toggle("flipAnimation");
@@ -149,7 +153,6 @@ let showWord = (guess) => {
 		}
 	}
 	const winner = wordToGuess === guess;
-	// const gameEnd = gameState.row === 5;
 	if (winner) {
 
 	let loader = document.querySelector('.loader');
@@ -162,9 +165,7 @@ let showWord = (guess) => {
 	gameEnd.style.display = 'none';
 	overview.style.display = 'flex';
 
-		// alert("winner");
 	    createAnswer(answer);
-		console.log("winner");
 		
 
 	} 
@@ -172,8 +173,6 @@ let showWord = (guess) => {
 };
 let gameEnding = () => {
 	if(gameState.row === 5){
-		alert('Game ended successfully')
-
 	let loader = document.querySelector('.loader');
 	let overview = document.querySelector('.overview');
 	let gameEnd = document.querySelector('.gameEnd');
@@ -192,19 +191,15 @@ let gameEnding = () => {
 };
 gameEnding();
 let colorKeyboard = (word) => {
-console.log('Free Spirit');
 	let buttons = document.querySelectorAll('.aphabet');
 	for (let i = 0; i < buttons.length; i++){
 		for(let j = 0; j < 5; j++){
-			let letter = word[j] === wordToGuess[j];
-			// let gridBox = document.getElementById(`gridbox-${gameState.row}-${j}`);
-			// let letter = gridBox.textContent;
-		if (letter === buttons[i].textContent){
-			buttons[i].classList.toggle("correct");
-		}else if(word.includes(buttons[i].textContent) && wordToGuess.includes(buttons[i].textContent)){
-			buttons[i].classList.toggle("wrong");
+			if (word[j] === wordToGuess[j] && word[j] === buttons[i].getAttribute('data-key')){
+			buttons[i].classList.add("correct");
+		} else if(word.includes(buttons[i].textContent) && wordToGuess.includes(buttons[i].textContent)){
+			buttons[i].classList.add("wrong");
 		} else if(!wordToGuess.includes(buttons[i].textContent) && word.includes(buttons[i].textContent)){
-			buttons[i].classList.toggle("empty");
+			buttons[i].classList.add("empty");
 
 		} 
 	};
@@ -319,22 +314,6 @@ inputKeys.addEventListener('click', (e) => {
 	}
 	});
 
-let restartGame = () => {
-
-	let game = document.querySelector('.game');
-	let gridBox = document.querySelector('.gridbox');
-	gridBox.textContent = "";
-	gameState.row = 0;
-	gameState.column = 0;
-	game.innerHTML = "";
-	for (let i = 0; i < gameState.data.length; i++) {
-		for (let j = 0; j < gameState.data[i].length; j++) {
-			if(gameState.data[i][j] !== ""){
-				gameState.data[i][j] = '';
-			};
-		};
-	};
-};
 rePlay.addEventListener('click', () => {
 	
 	overlay.style.display = 'none';
